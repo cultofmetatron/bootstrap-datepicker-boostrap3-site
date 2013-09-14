@@ -34,6 +34,10 @@ module.exports = function (grunt) {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass:server', 'autoprefixer']
             },
+            datepicker: {
+              files: ['bootstrap-datepicker/*'],
+              tasks: ['less']
+            },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
@@ -113,6 +117,16 @@ module.exports = function (grunt) {
                     urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
                 }
             }
+        },
+        less: {
+            development: {
+                options: {
+                    paths: ['assets/css']
+                },
+                files: {
+                    'app/styles/datepicker.css': 'bootstrap-datepicker/build/build_standalone.less'
+                }
+            },
         },
         coffee: {
             dist: {
@@ -334,6 +348,7 @@ module.exports = function (grunt) {
         }
     });
 
+
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'connect:dist:keepalive']);
@@ -347,6 +362,8 @@ module.exports = function (grunt) {
             'watch'
         ]);
     });
+
+    grunt.loadNpmTasks('grunt-contrib-less');
 
     grunt.registerTask('test', [
         'clean:server',
@@ -363,6 +380,7 @@ module.exports = function (grunt) {
         'autoprefixer',
         'concat',
         'cssmin',
+        'less',
         'uglify',
         'modernizr',
         'copy:dist',
@@ -375,4 +393,5 @@ module.exports = function (grunt) {
         'test',
         'build'
     ]);
+
 };
