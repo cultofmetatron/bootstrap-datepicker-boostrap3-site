@@ -196,7 +196,22 @@ module.exports = function (grunt) {
                 separator: ';',
             },
             dist: /* the main less file I will be using throughout this project */{
-                src: ['app/bower_components/jquery/jquery.js', 'app/bower_components/bootstrap/js/*.js'],
+                src: [
+                    'app/bower_components/jquery/jquery.js',
+                    'app/bower_components/bootstrap/js/tooltip.js',
+                    'app/bower_components/bootstrap/js/transition.js',
+                    'app/bower_components/bootstrap/js/alert.js',
+                    'app/bower_components/bootstrap/js/affix.js',
+                    'app/bower_components/bootstrap/js/button.js',
+                    'app/bower_components/bootstrap/js/carousel.js',
+                    'app/bower_components/bootstrap/js/collapse.js',
+                    'app/bower_components/bootstrap/js/dropdown.js',
+                    'app/bower_components/bootstrap/js/modal.js',
+                    'app/bower_components/bootstrap/js/popover.js',
+                    'app/bower_components/bootstrap/js/scrollspy.js',
+                    'app/bower_components/bootstrap/js/tab.js',
+                    'app/bower_components/prismjs/prism.js'
+                ],
                 dest: 'app/scripts/dependencies.js',
                 nonull: true
             }
@@ -314,23 +329,23 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*'
-                    ]},
-                    {
-                        //copy over datepicker js files
-                        expand: true,
-                        cwd: 'bootstrap-datepicker/js/',
-                        src: '*',
-                        dest: 'app/scripts/',
-                        filter: 'isFile'
-                    },
-                    {
-                        //copy bootstrap fonts
-                        expand: true,
-                        cwd: 'app/bower_components/bootstrap/fonts/',
-                        src: '*',
-                        dest: 'app/fonts/',
-                    }
-                ]
+                    ]
+                },
+                {
+                    //copy over datepicker js files
+                    expand: true,
+                    cwd: 'bootstrap-datepicker/js/',
+                    src: '*',
+                    dest: 'app/scripts/',
+                    filter: 'isFile'
+                },
+                {
+                    //copy bootstrap fonts
+                    expand: true,
+                    cwd: 'app/bower_components/bootstrap/fonts/',
+                    src: '*',
+                    dest: 'app/fonts/',
+                }]
             },
             datepicker: {
                 files: [{
@@ -350,11 +365,19 @@ module.exports = function (grunt) {
                 }]
             },
             styles: {
-                expand: true,
-                dot: true,
-                cwd: '<%= yeoman.app %>/styles',
-                dest: '.tmp/styles/',
-                src: '{,*/}*.css'
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%= yeoman.app %>/styles',
+                    dest: '.tmp/styles/',
+                    src: ['{,*/}*.css']
+                },
+                {
+                    expand: true,
+                    cwd: 'app/bower_components/prismjs/',
+                    dest: 'app/styles/prism/',
+                    src: ['*.css']
+                }]
             }
         },
         modernizr: {
