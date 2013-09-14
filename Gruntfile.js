@@ -124,7 +124,9 @@ module.exports = function (grunt) {
                     paths: ['assets/css']
                 },
                 files: {
+                    'app/styles/bootstrap.css':'app/bower_components/bootstrap/less/bootstrap.less',
                     'app/styles/datepicker.css': 'bootstrap-datepicker/build/build_standalone.less'
+                    
                 }
             },
         },
@@ -188,9 +190,22 @@ module.exports = function (grunt) {
         },
         // not used since Uglify task does concat,
         // but still available if needed
-        /*concat: {
-            dist: {}
-        },*/
+        concat: {
+            options: {
+                separator: ';',
+            },
+            dist: {
+                src: ['app/bower_components/bootstrap/js/button.js'],
+                dest: ['app/scripts/bootstrap.js'],
+                nonull: true
+            }
+            /*
+            dist: {
+              src: [],
+              dest: []
+            }
+            */
+        },
         'bower-install': {
             app: {
                 html: '<%= yeoman.app %>/index.html',
