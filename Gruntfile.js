@@ -125,8 +125,8 @@ module.exports = function (grunt) {
                 },
                 files: {
                     'app/styles/bootstrap.css':'app/bower_components/bootstrap/less/bootstrap.less',
-                    'app/styles/datepicker.css': 'bootstrap-datepicker/build/build_standalone.less'
-                    
+                    'app/styles/datepicker.css': 'bootstrap-datepicker/build/build_standalone.less',
+                    'app/styles/main.css' : 'app/less/app.less'
                 }
             },
         },
@@ -194,9 +194,9 @@ module.exports = function (grunt) {
             options: {
                 separator: ';',
             },
-            dist: {
-                src: ['app/bower_components/bootstrap/js/button.js'],
-                dest: ['app/scripts/bootstrap.js'],
+            dist: /* the main less file I will be using throughout this project */{
+                src: ['app/bower_components/jquery/jquery.js', 'app/bower_components/bootstrap/js/*.js'],
+                dest: 'app/scripts/bootstrap.js',
                 nonull: true
             }
             /*
@@ -317,11 +317,19 @@ module.exports = function (grunt) {
                   },
                   {
                     //copy over datepicker js files
-                    expand: true, cwd: 'bootstrap-datepicker/js/',
-                    src: ['path/*'],
+                    expand: true,
+                    cwd: 'bootstrap-datepicker/js/',
+                    src: '*',
                     dest: 'app/scripts/',
                     filter: 'isFile'
                   },
+                  {
+                    //copy bootstrap fonts
+                    expand: true,
+                    cwd: 'app/bower_components/bootstrap/fonts/',
+                    src: '*',
+                    dest: 'app/fonts/',
+                  }
                 ]
             },
             styles: {
