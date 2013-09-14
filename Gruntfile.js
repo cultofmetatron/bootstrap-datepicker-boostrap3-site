@@ -285,7 +285,15 @@ module.exports = function (grunt) {
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*'
                     ]
-                }]
+                  },
+                  {
+                    //copy over datepicker js files
+                    expand: true, cwd: 'bootstrap-datepicker/js/',
+                    src: ['path/*'],
+                    dest: 'app/scripts/',
+                    filter: 'isFile'
+                  },
+                ]
             },
             styles: {
                 expand: true,
