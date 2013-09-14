@@ -197,7 +197,7 @@ module.exports = function (grunt) {
             },
             dist: /* the main less file I will be using throughout this project */{
                 src: ['app/bower_components/jquery/jquery.js', 'app/bower_components/bootstrap/js/*.js'],
-                dest: 'app/scripts/bootstrap.js',
+                dest: 'app/scripts/dependencies.js',
                 nonull: true
             }
             /*
