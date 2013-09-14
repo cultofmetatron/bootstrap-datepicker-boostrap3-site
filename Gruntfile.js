@@ -30,17 +30,17 @@ module.exports = function (grunt) {
                 files: ['test/spec/{,*/}*.coffee'],
                 tasks: ['coffee:test']
             },
-            compass: {
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
-                tasks: ['compass:server', 'autoprefixer']
-            },
             datepicker: {
-              files: ['bootstrap-datepicker/*'],
-              tasks: ['less']
+                files: ['bootstrap-datepicker/*'],
+                tasks: ['less', 'copy:dist']
             },
             styles: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css'],
                 tasks: ['copy:styles', 'autoprefixer']
+            },
+            lessfiles: {
+                files: ['<%= yeoman.app %>/less/{,*/}*.less'],
+                tasks: ['less']
             },
             livereload: {
                 options: {
@@ -48,6 +48,7 @@ module.exports = function (grunt) {
                 },
                 files: [
                     '<%= yeoman.app %>/*.html',
+                    '<%= yeoman.app %>/less/*.less',
                     '.tmp/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
@@ -126,7 +127,7 @@ module.exports = function (grunt) {
                 files: {
                     'app/styles/bootstrap.css':'app/bower_components/bootstrap/less/bootstrap.less',
                     'app/styles/datepicker.css': 'bootstrap-datepicker/build/build_standalone.less',
-                    'app/styles/main.css' : 'app/less/app.less'
+                    'app/styles/main.css' : 'app/less/main.less'
                 }
             },
         },
@@ -313,24 +314,40 @@ module.exports = function (grunt) {
                         '.htaccess',
                         'images/{,*/}*.{webp,gif}',
                         'styles/fonts/{,*/}*.*'
-                    ]
-                  },
-                  {
+                    ]},
+                    {
+                        //copy over datepicker js files
+                        expand: true,
+                        cwd: 'bootstrap-datepicker/js/',
+                        src: '*',
+                        dest: 'app/scripts/',
+                        filter: 'isFile'
+                    },
+                    {
+                        //copy bootstrap fonts
+                        expand: true,
+                        cwd: 'app/bower_components/bootstrap/fonts/',
+                        src: '*',
+                        dest: 'app/fonts/',
+                    }
+                ]
+            },
+            datepicker: {
+                files: [{
                     //copy over datepicker js files
                     expand: true,
                     cwd: 'bootstrap-datepicker/js/',
                     src: '*',
                     dest: 'app/scripts/',
                     filter: 'isFile'
-                  },
-                  {
+                },
+                {
                     //copy bootstrap fonts
                     expand: true,
                     cwd: 'app/bower_components/bootstrap/fonts/',
                     src: '*',
-                    dest: 'app/fonts/',
-                  }
-                ]
+                    dest: 'app/fonts/'
+                }]
             },
             styles: {
                 expand: true,
